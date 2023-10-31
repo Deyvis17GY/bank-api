@@ -54,6 +54,10 @@ export const loginUser = async (req: Request, res: Response) => {
 
     const data = await repository.findAccount(input.email)
 
+    if (!data) {
+      return ErrorResponse(res, 404, 'Invalid Credentials')
+    }
+
     const verifyPassword = await ValidatePassword({
       enteredPassword: input.password,
       savePassword: data.password,
@@ -64,16 +68,18 @@ export const loginUser = async (req: Request, res: Response) => {
       return ErrorResponse(res, 404, 'Invalid Credentials')
     }
 
-    GetToken(res, data)
+    const token = GetToken(res, data)
+
     const publicData = {
       userId: data.userId,
       lastName: data.lastName,
       firstName: data.firstName,
-      email: data.email
+      email: data.email,
+      token
     }
 
     return SuccessResponse(res, publicData)
   } catch (error) {
-    ErrorResponse(res, 500, error?.sqlMessage)
+    ErrorResponse(res, 500, error?.sqlMessage ? error?.sqlMessage : error)
   }
 }
