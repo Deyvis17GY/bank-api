@@ -1,10 +1,17 @@
 import bodyParser from 'body-parser'
 import type { Request, Response } from 'express'
 import express from 'express'
+import cors from 'cors'
 import { userRoutes } from './routes/userRouter'
 
 const app = express()
 
+app.use(
+  cors({
+    origin: ['http://localhost:3001']
+  })
+)
+app.use(express.urlencoded({ extended: false }))
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.disable('x-powered-by')
