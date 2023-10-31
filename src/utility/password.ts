@@ -33,14 +33,9 @@ export const GetToken = (
     { userId, email, lastName, firstName },
     JWT_SECRET_KEY,
     {
-      expiresIn: '12h'
+      expiresIn: '1h'
     }
   )
 
-  res.cookie('jwt', userToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV !== 'development',
-    sameSite: 'strict',
-    maxAge: 12 * 60 * 60 * 1000
-  })
+  return userToken
 }
