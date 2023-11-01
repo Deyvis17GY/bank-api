@@ -33,7 +33,7 @@ export const GetToken = (
     { userId, email, lastName, firstName },
     JWT_SECRET_KEY,
     {
-      expiresIn: '1h'
+      expiresIn: '12h'
     }
   )
 
