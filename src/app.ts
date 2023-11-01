@@ -8,7 +8,7 @@ const app = express()
 
 app.use(
   cors({
-    origin: ['http://localhost:3001']
+    origin: ['http://localhost:3001', process.env.CLIENT_URL]
   })
 )
 app.use(express.urlencoded({ extended: false }))
